@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#005a9c">
+  <meta name="description" content="Nice Web builds beautiful, affordable websites for small businesses—with AI speed and a human touch.">
+  <title>Nice Web — A good website changes everything.</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #005a9c;
+      --blue-deep: #003b70;
+      --blue-bright: #1687d1;
+      --sky: #eaf5fc;
+      --ink: #10243a;
+      --muted: #587087;
+      --paper: #fbfdff;
+      --line: #dce8f1;
+      --red: #ef4146;
+      --radius: 22px;
+      --shadow: 0 22px 65px rgb(0 58 112 / 12%);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--blue);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      content: "";
+    }
+    .section { padding: 104px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 42px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.045em; }
+    h1 { font-size: clamp(3.2rem, 7vw, 6.35rem); line-height: .96; }
+    h2 { margin: 14px 0 16px; font-size: clamp(2.35rem, 4.5vw, 4rem); line-height: 1.03; }
+    h3 { font-size: 1.28rem; }
+    .lead { color: var(--muted); font-size: 1.13rem; line-height: 1.7; }
+    .button {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: .94rem;
+      font-weight: 750;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--blue-deep); box-shadow: 0 10px 24px rgb(0 58 112 / 20%); }
+    .button-light { background: white; color: var(--blue-deep); }
+    .button-light:hover { background: var(--sky); }
+    .arrow { font-size: 1.15rem; line-height: 1; }
+
+    .site-header {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      right: 0;
+      left: 0;
+      padding: 21px 0;
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; color: var(--blue-deep); font-size: 1.65rem; font-weight: 850; letter-spacing: -.05em; }
+    .brand-logo {
+      display: block;
+      width: 56px;
+      height: 56px;
+      padding: 6px;
+      border-radius: 11px 11px 11px 4px;
+      background: var(--blue);
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+    .brand-name { display: flex; height: 56px; flex-direction: column; justify-content: center; line-height: .88; }
+    .nav-links { display: flex; align-items: center; gap: 32px; font-size: .9rem; font-weight: 650; }
+    .nav-links > a:not(.button) { color: #35516b; }
+    .nav-links > a:not(.button):hover { color: var(--blue); }
+    .nav-links .button { min-height: 44px; padding-inline: 18px; font-size: .86rem; }
+    .menu-toggle { display: none; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 745px;
+      padding: 154px 0 92px;
+      background: radial-gradient(ellipse at 82% 39%, #d2eafb 0, transparent 38%), linear-gradient(120deg, #f8fcff 10%, #eaf5fc 100%);
+    }
+    .hero::after {
+      position: absolute;
+      right: -112px;
+      bottom: -240px;
+      width: 550px;
+      height: 550px;
+      border: 1px solid rgb(0 90 156 / 11%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 42px rgb(0 90 156 / 3%), 0 0 0 84px rgb(0 90 156 / 2%);
+      content: "";
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; align-items: center; grid-template-columns: 1.02fr .98fr; gap: 48px; }
+    .hero-copy { max-width: 640px; }
+    .hero h1 { margin: 19px 0 22px; color: var(--blue-deep); }
+    .hero h1 span { color: var(--blue-bright); }
+    .hero-copy .lead { max-width: 510px; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+    .text-link { color: var(--blue-deep); font-size: .93rem; font-weight: 750; }
+    .text-link span { margin-left: 5px; color: var(--blue); }
+    .proof-line { display: flex; align-items: center; gap: 13px; margin-top: 34px; color: #46627a; font-size: .84rem; font-weight: 650; }
+    .avatar-stack { display: flex; padding-left: 5px; }
+    .avatar {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      margin-left: -6px;
+      place-items: center;
+      border: 2px solid #f4faff;
+      border-radius: 50%;
+      background: #d8ebf8;
+      color: var(--blue-deep);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+    .avatar:nth-child(2) { background: #f5dfc7; }
+    .avatar:nth-child(3) { background: #dce7cf; }
+    .avatar:nth-child(4) { background: #ecd7e2; }
+
+    .visual { position: relative; min-height: 470px; display: grid; place-items: center; }
+    .orbit {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border: 1px solid rgb(0 90 156 / 13%);
+      border-radius: 50%;
+    }
+    .orbit::before, .orbit::after { position: absolute; border: 1px solid rgb(0 90 156 / 10%); border-radius: 50%; content: ""; }
+    .orbit::before { inset: 34px; }
+    .orbit::after { inset: 74px; }
+    .site-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 408px);
+      overflow: hidden;
+      border: 7px solid #fff;
+      border-radius: 17px;
+      background: white;
+      box-shadow: 0 30px 75px rgb(0 58 112 / 22%);
+      transform: rotate(-2.2deg);
+    }
+    .browser-bar { display: flex; height: 29px; align-items: center; gap: 5px; padding: 0 10px; background: #fff; }
+    .browser-bar i { width: 6px; height: 6px; border-radius: 50%; background: #d8e3eb; }
+    .browser-bar i:first-child { background: #f3908a; }
+    .browser-url { width: 46%; height: 12px; margin-left: 9px; border-radius: 10px; background: #f2f6f9; }
+    .mock-site { min-height: 326px; padding: 16px 19px; background: linear-gradient(135deg, #fffbf1, #f7ead5); }
+    .mock-nav { display: flex; align-items: center; justify-content: space-between; color: #50341f; font-size: .56rem; font-weight: 800; }
+    .mock-logo { font-size: .72rem; letter-spacing: -.05em; }
+    .mock-book { padding: 5px 8px; border-radius: 4px; background: #bd6443; color: white; font-size: .47rem; }
+    .mock-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 12px; margin-top: 30px; }
+    .mock-kicker { color: #a45b3d; font-size: .43rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .mock-title { margin: 5px 0; color: #53351f; font-family: Georgia, serif; font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.02; letter-spacing: -.05em; }
+    .mock-copy { color: #806b56; font-size: .49rem; line-height: 1.5; }
+    .mock-cta { display: inline-block; margin-top: 7px; padding: 5px 8px; border-radius: 4px; background: #bd6443; color: white; font-size: .45rem; font-weight: 800; }
+    .coffee-art { position: relative; height: 155px; border-radius: 48% 45% 5px 5px; background: linear-gradient(145deg, #d29d6c, #8c5738); }
+    .coffee-art::before { position: absolute; right: 11%; bottom: -6px; left: 11%; height: 57%; border: 5px solid #f1e4d3; border-top: 0; border-radius: 0 0 48% 48%; background: radial-gradient(ellipse at 50% 5%, #9a5c37 0 39%, #eee0cf 41% 48%, #f8efe2 50%); content: ""; }
+    .coffee-art::after { position: absolute; top: 39%; left: 42%; width: 23px; height: 23px; border: 2px solid #e8d2b7; border-radius: 50%; content: ""; }
+    .mock-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 16px; }
+    .mock-strip i { height: 37px; border-radius: 4px; background: linear-gradient(135deg, #e6d2b8, #f4e8d6); }
+    .float-tag {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 15px;
+      border: 1px solid rgb(0 90 156 / 8%);
+      border-radius: 13px;
+      background: white;
+      box-shadow: 0 10px 30px rgb(0 58 112 / 12%);
+      color: var(--blue-deep);
+      font-size: .74rem;
+      font-weight: 800;
+    }
+    .float-tag span { display: grid; width: 27px; height: 27px; place-items: center; border-radius: 8px; background: var(--sky); color: var(--blue); }
+    .float-top { top: 36px; right: 0; transform: rotate(4deg); }
+    .float-bottom { bottom: 28px; left: -1px; transform: rotate(-4deg); }
+
+    .trust { padding: 23px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fff; }
+    .trust-row { display: flex; align-items: center; justify-content: space-between; gap: 25px; }
+    .trust-label { color: #6d8498; font-size: .76rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .trust-item { display: inline-flex; align-items: center; gap: 9px; color: #41617b; font-size: .85rem; font-weight: 700; }
+    .trust-item b { color: var(--blue); font-size: 1.13rem; }
+
+    .services { background: #fff; }
+    .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); transition: transform .2s ease, box-shadow .2s ease; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .icon-box { display: grid; width: 48px; height: 48px; margin-bottom: 25px; place-items: center; border-radius: 15px; background: var(--sky); color: var(--blue); font-size: 1.35rem; }
+    .service-card h3 { margin-bottom: 9px; color: var(--blue-deep); }
+    .service-card p { margin-bottom: 0; color: var(--muted); font-size: .94rem; line-height: 1.7; }
+    .service-note { display: flex; align-items: center; gap: 12px; margin-top: 25px; padding: 16px 19px; border-radius: 13px; background: var(--sky); color: #315d7e; font-size: .9rem; }
+    .service-note b { color: var(--blue-deep); }
+
+    .difference { overflow: hidden; background: var(--blue-deep); color: white; }
+    .difference .eyebrow { color: #b7dff8; }
+    .difference h2 { color: white; }
+    .difference .lead { color: #c4d9e8; }
+    .difference-grid { display: grid; align-items: center; grid-template-columns: .92fr 1.08fr; gap: 75px; }
+    .difference-copy .button { margin-top: 12px; }
+    .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .benefit { min-height: 158px; padding: 23px; border: 1px solid rgb(255 255 255 / 15%); border-radius: 17px; background: rgb(255 255 255 / 6%); }
+    .benefit-icon { margin-bottom: 13px; color: #7bc5f3; font-size: 1.2rem; }
+    .benefit h3 { margin-bottom: 7px; color: white; font-size: 1.02rem; letter-spacing: -.02em; }
+    .benefit p { margin-bottom: 0; color: #b8d0e0; font-size: .83rem; line-height: 1.55; }
+
+    .process { background: var(--sky); }
+    .process-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 49px; }
+    .step { position: relative; padding-top: 22px; border-top: 1px solid #bfd7e8; }
+    .step-num { display: grid; width: 36px; height: 36px; margin-bottom: 19px; place-items: center; border-radius: 50%; background: var(--blue); color: white; font-size: .82rem; font-weight: 850; }
+    .step h3 { margin-bottom: 8px; color: var(--blue-deep); }
+    .step p { max-width: 310px; margin-bottom: 0; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+
+    .who { background: #fff; }
+    .who-grid { display: grid; align-items: center; grid-template-columns: 1fr .9fr; gap: 75px; }
+    .who-card { position: relative; padding: 36px; overflow: hidden; border-radius: 25px; background: linear-gradient(145deg, #e9f5fc, #f6fbff); }
+    .who-card::after { position: absolute; right: -72px; bottom: -112px; width: 250px; height: 250px; border: 1px solid #bfdff3; border-radius: 50%; box-shadow: 0 0 0 30px rgb(0 90 156 / 4%), 0 0 0 60px rgb(0 90 156 / 3%); content: ""; }
+    .who-card > * { position: relative; z-index: 1; }
+    .quote-mark { color: var(--blue-bright); font-family: Georgia, serif; font-size: 4rem; line-height: .8; }
+    .who-quote { max-width: 410px; margin: 14px 0 25px; color: var(--blue-deep); font-size: 1.5rem; font-weight: 740; line-height: 1.32; letter-spacing: -.035em; }
+    .who-caption { color: var(--muted); font-size: .85rem; }
+    .industry-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .industry { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; color: #3a5872; font-size: .83rem; font-weight: 680; }
+
+    .cta { padding: 86px 0; background: var(--blue); color: white; }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .cta h2 { max-width: 680px; margin: 12px 0 0; font-size: clamp(2.3rem, 4vw, 3.5rem); }
+    .cta .eyebrow { color: #c7e6fa; }
+    .cta .eyebrow::before { background: #ff777b; }
+    .cta p { margin: 13px 0 0; color: #d1e8f7; }
+    .site-footer { padding: 27px 0; background: var(--blue-deep); color: #c4d8e7; font-size: .82rem; }
+    .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-brand { color: white; }
+    .footer-brand .brand-mark { background: white; color: var(--blue); }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a:hover { color: white; }
+
+    :focus-visible { outline: 3px solid #ffbc49; outline-offset: 4px; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .visual { transform: scale(.9); }
+      .difference-grid, .who-grid { gap: 42px; }
+      .trust-row { flex-wrap: wrap; justify-content: center; }
+      .trust-label { width: 100%; text-align: center; }
+    }
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 36px, 520px); }
+      .section { padding: 78px 0; }
+      .site-header { padding: 16px 0; }
+      .menu-toggle {
+        display: grid;
+        width: 43px;
+        height: 43px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: white;
+        color: var(--blue-deep);
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+      .nav-links {
+        position: absolute;
+        top: 67px;
+        right: 18px;
+        left: 18px;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: white;
+        box-shadow: var(--shadow);
+      }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links > a:not(.button) { padding: 12px; }
+      .nav-links .button { margin-top: 6px; }
+      .hero { min-height: auto; padding: 119px 0 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 0; }
+      .hero h1 { max-width: 530px; font-size: clamp(3.4rem, 15vw, 5rem); }
+      .hero-copy .lead { font-size: 1rem; }
+      .visual { min-height: 380px; margin: -4px -11px -10px; transform: scale(.88); }
+      .orbit { width: 375px; height: 375px; }
+      .site-card { width: min(100%, 370px); }
+      .trust-row { gap: 16px 24px; }
+      .trust-item { font-size: .79rem; }
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { padding: 24px; }
+      .difference-grid, .who-grid { grid-template-columns: 1fr; gap: 35px; }
+      .benefits { gap: 10px; }
+      .benefit { min-height: 145px; padding: 17px; }
+      .process-list { grid-template-columns: 1fr; gap: 27px; margin-top: 35px; }
+      .who-card { padding: 28px; }
+      .cta-inner { align-items: flex-start; flex-direction: column; }
+      .cta { padding: 68px 0; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="Nice Web home">
+        <img class="brand-logo" src="logo.png" alt="">
+        <span class="brand-name"><span>nice</span><span>web</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#services">What we do</a>
+        <a href="#how">How it works</a>
+        <a href="#about">Who it's for</a>
+        <a class="button" href="#contact">Let's talk websites <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <span class="eyebrow">Good businesses deserve good websites</span>
+          <h1>A good website changes <span>everything.</span></h1>
+          <p class="lead">We help small businesses get found, get chosen, and get growing—with a beautiful website made easier by AI and better with a human touch.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Get your business online <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#how">See how it works <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="proof-line">
+            <div class="avatar-stack" aria-hidden="true">
+              <span class="avatar">J</span><span class="avatar">M</span><span class="avatar">A</span><span class="avatar">+</span>
+            </div>
+            <span>Made for the people behind local businesses</span>
+          </div>
+        </div>
+        <div class="visual" aria-label="Preview of a polished small business website">
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="float-tag float-top"><span aria-hidden="true">✦</span> AI-powered, human-approved</div>
+          <div class="site-card">
+            <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="browser-url"></span></div>
+            <div class="mock-site">
+              <div class="mock-nav"><span class="mock-logo">DAYBREAK COFFEE</span><span>Our story &nbsp; Menu</span><span class="mock-book">COME ON IN</span></div>
+              <div class="mock-content">
+                <div>
+                  <div class="mock-kicker">Your neighborhood coffee spot</div>
+                  <div class="mock-title">Good mornings start here.</div>
+                  <div class="mock-copy">Small-batch coffee, fresh pastries, and a place that feels like yours.</div>
+                  <span class="mock-cta">FIND YOUR NEW FAVORITE</span>
+                </div>
+                <div class="coffee-art" aria-hidden="true"></div>
+              </div>
+              <div class="mock-strip" aria-hidden="true"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="float-tag float-bottom"><span aria-hidden="true">↗</span> Your business, open online</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust" aria-label="Our approach">
+      <div class="trust-row wrap">
+        <span class="trust-label">A little less website stress</span>
+        <span class="trust-item"><b aria-hidden="true">✦</b> Thoughtful design</span>
+        <span class="trust-item"><b aria-hidden="true">◎</b> Built for mobile</span>
+        <span class="trust-item"><b aria-hidden="true">↗</b> Ready to grow</span>
+        <span class="trust-item"><b aria-hidden="true">♥</b> Small-business friendly</span>
+      </div>
+    </div>
+
+    <section class="section services" id="services">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">The nice part</span>
+          <h2>Everything you need to show up online.</h2>
+          <p class="lead">No tech headaches. No cookie-cutter feel. Just the right tools to help the right customers find you.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="icon-box" aria-hidden="true">▧</div>
+            <h3>A website that feels like you</h3>
+            <p>A custom, mobile-friendly site that tells your story, shows off your work, and makes it easy for customers to take the next step.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon-box" aria-hidden="true">⌕</div>
+            <h3>Get found in your neighborhood</h3>
+            <p>Clear pages and smart local SEO basics help nearby customers discover your business when they’re searching for what you do.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon-box" aria-hidden="true">↗</div>
+            <h3>Keep things easy to manage</h3>
+            <p>Contact forms, appointment links, menus, and the essentials—organized simply, so your website works as hard as you do.</p>
+          </article>
+        </div>
+        <div class="service-note"><span aria-hidden="true">✦</span><span><b>Already have a website?</b> We can give it a fresh start, too.</span></div>
+      </div>
+    </section>
+
+    <section class="section difference">
+      <div class="difference-grid wrap">
+        <div class="difference-copy">
+          <span class="eyebrow">Smart tools. Real people.</span>
+          <h2>AI helps us move faster. You make it yours.</h2>
+          <p class="lead">We use AI to speed up the busywork—not to replace the people who know your business best. You bring the know-how; we bring the craft.</p>
+          <a class="button button-light" href="#contact">Let's make something nice <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="benefits">
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">✦</div>
+            <h3>A quicker first draft</h3>
+            <p>AI helps us turn your notes and ideas into a strong starting point.</p>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">♡</div>
+            <h3>Your voice, not robot copy</h3>
+            <p>We shape the words around what makes your business special.</p>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">⌘</div>
+            <h3>Design with a human eye</h3>
+            <p>Every layout gets a real person's attention to detail.</p>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">✓</div>
+            <h3>You stay in the loop</h3>
+            <p>Review the work, share feedback, and feel good about every detail.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process" id="how">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">Easy as one, two, nice</span>
+          <h2>From “I need a website” to “we're live.”</h2>
+          <p class="lead">A friendly, straightforward process built around your schedule—not a pile of tech jargon.</p>
+        </div>
+        <div class="process-list">
+          <article class="step">
+            <span class="step-num">01</span>
+            <h3>Tell us about your business</h3>
+            <p>What you do, who you help, and what you'd love your website to do. No prep or tech skills needed.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">02</span>
+            <h3>We make it look like you</h3>
+            <p>We build your first draft with AI-assisted speed and thoughtful, human-led design.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">03</span>
+            <h3>Make it nice. Make it live.</h3>
+            <p>We fine-tune the details together, then help you get your new website out into the world.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section who" id="about">
+      <div class="who-grid wrap">
+        <div>
+          <span class="eyebrow">For the doers, makers & locals</span>
+          <h2>Your work is great. Let's get it online.</h2>
+          <p class="lead">If your customers are asking “do you have a website?”—or your current one isn't doing you justice—we'd love to help.</p>
+          <div class="industry-list" aria-label="Businesses we help">
+            <span class="industry">Local shops</span>
+            <span class="industry">Home services</span>
+            <span class="industry">Food & drink</span>
+            <span class="industry">Independent pros</span>
+            <span class="industry">Creative studios</span>
+            <span class="industry">And you</span>
+          </div>
+        </div>
+        <aside class="who-card">
+          <div class="quote-mark" aria-hidden="true">“</div>
+          <p class="who-quote">Your next customer is looking for a business like yours. Let's help them find it.</p>
+          <span class="who-caption">A little nudge from your future web team.</span>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="cta-inner wrap">
+        <div>
+          <span class="eyebrow">Your corner of the internet awaits</span>
+          <h2>Let's get your business online.</h2>
+          <p>Start with a friendly chat about your website. No pressure, no jargon.</p>
+        </div>
+        <a class="button button-light" href="mailto:hello@niceweb.studio?subject=Let's%20talk%20about%20a%20website">Say hello <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-row wrap">
+      <a class="brand footer-brand" href="#" aria-label="Nice Web home">
+        <img class="brand-logo" src="logo.png" alt=""><span class="brand-name"><span>nice</span><span>web</span></span>
+      </a>
+      <span>Good websites for good local businesses.</span>
+      <div class="footer-links"><a href="#services">Services</a><a href="#how">How it works</a><a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#nav-links");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+      navigation.classList.toggle("open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open menu");
+        navigation.classList.remove("open");
+      }
+    });
+  </script>
+</body>
+</html>
